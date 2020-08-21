@@ -1,5 +1,7 @@
 name: 'action-init'
-description: ''
+description: 'a GitHub action to initialize repositories created from templates in Kaskadi'
 runs:
   using: 'node12'
-  main: 'index.js'
+  pre: 'dist/setup.js'
+  main: 'dist/main.js'
+  post: 'dist/cleanup.js'
