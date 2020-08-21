@@ -1,6 +1,11 @@
 const core = require('@actions/core')
 const { spawnSync } = require('child_process')
 const repoType = core.getInput('repoType')
+console.log('INFO: installing kaskadi-cli in repository...')
+console.log('************ NPM ouput ************')
+spawnSync('npm', ['i', 'kaskadi-cli'], { stdio: 'inherit' })
+console.log('************ End of NPM ouput ************')
+console.log('SUCCESS: kaskadi-cli installed!')
 console.log(`INFO: initializing repository as ${repoType} repository...`)
 spawnSync('source', ['node_modules/.bin/kaskadi', 'init', repoType], { stdio: 'inherit' })
 if (repoType === 'element' || repoType === 'lambda') {

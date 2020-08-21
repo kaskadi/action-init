@@ -10,8 +10,3 @@ if (process.env.GITHUB_ACTIONS && process.env.GITHUB_REPOSITORY !== 'kaskadi/act
   console.log('SUCCESS: dependencies installed!')
   process.chdir(callingRepo)
 }
-console.log('INFO: installing kaskadi-cli in repository...')
-console.log('************ NPM ouput ************')
-spawnSync('npm', ['i', 'kaskadi-cli'], { stdio: 'inherit' })
-console.log('************ End of NPM ouput ************')
-console.log('SUCCESS: kaskadi-cli installed!')
