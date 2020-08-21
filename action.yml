@@ -6,6 +6,6 @@ inputs:
     required: true
 runs:
   using: 'node12'
-  pre: 'dist/pre.js'
-  main: 'dist/main.js'
-  post: 'dist/post.js'
+  pre: 'src/pre.js'
+  main: 'src/main.js'
+  post: 'src/post.js'
