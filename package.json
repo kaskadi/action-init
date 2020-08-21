@@ -36,5 +36,7 @@
     ],
     "report-dir": "./coverage"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@actions/core": "^1.2.4"
+  }
 }
