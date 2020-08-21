@@ -1,20 +1,9 @@
-module.exports = {
-  installCLI,
-  removeCLI
-}
-
-function installCLI (spawnSync) {
-  console.log('INFO: installing kaskadi-cli in repository...')
+module.exports = (spawnSync, op) => {
+  const header = `INFO: ${op === 'i' ? 'installing' : 'removing'} kaskadi-cli ${op === 'i' ? 'in' : 'from'} repository...`
+  const footer = `SUCCESS: kaskadi-cli ${op === 'i' ? 'installed' : 'removed'}!`
+  console.log(header)
   console.log('************ NPM ouput ************')
-  spawnSync('npm', ['i', 'kaskadi-cli'], { stdio: 'inherit' })
+  spawnSync('npm', [op, 'kaskadi-cli'], { stdio: 'inherit' })
   console.log('************ End of NPM ouput ************')
-  console.log('SUCCESS: kaskadi-cli installed!')
-}
-
-function removeCLI (spawnSync) {
-  console.log('INFO: removing kaskadi-cli from repository...')
-  console.log('************ NPM ouput ************')
-  spawnSync('npm', ['rm', 'kaskadi-cli'], { stdio: 'inherit' })
-  console.log('************ End of NPM ouput ************')
-  console.log('SUCCESS: kaskadi-cli removed!')
+  console.log(footer)
 }
