@@ -5,7 +5,7 @@ chai.should()
 
 // *************
 // Write your tests here
-describe('template-action', function () {
+describe('action-init', function () {
   // this.timeout(10000)
 
   // uncomment this if you want to raise the timeout cap for your whole test (when you need to perform long async tasks). You can also follow the same logic per describe block or per it block to increase the timeout cap

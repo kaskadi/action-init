@@ -1,4 +1,4 @@
-name: 'template-action'
+name: 'action-init'
 description: ''
 runs:
   using: 'node12'

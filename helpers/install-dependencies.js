@@ -1,5 +1,5 @@
 module.exports = () => {
-  if (!process.env.GITHUB_ACTIONS || process.env.GITHUB_REPOSITORY === 'kaskadi/template-action') {
+  if (!process.env.GITHUB_ACTIONS || process.env.GITHUB_REPOSITORY === 'kaskadi/action-init') {
     return
   }
   const { spawnSync } = require('child_process')
