@@ -1,0 +1,7 @@
+const { spawnSync } = require('child_process')
+require('../helpers/install-dependencies.js')(spawnSync)
+console.log('INFO: installing kaskadi-cli in repository...')
+console.log('************ NPM ouput ************')
+spawnSync('npm', ['i', 'kaskadi-cli'], { stdio: 'inherit' })
+console.log('************ End of NPM ouput ************')
+console.log('SUCCESS: kaskadi-cli installed!')

@@ -1,1 +1,0 @@
-require('../helpers/install-dependencies.js')()
