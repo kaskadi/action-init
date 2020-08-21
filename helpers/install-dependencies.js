@@ -1,8 +1,7 @@
-module.exports = () => {
+module.exports = (spawnSync) => {
   if (!process.env.GITHUB_ACTIONS || process.env.GITHUB_REPOSITORY === 'kaskadi/action-init') {
     return
   }
-  const { spawnSync } = require('child_process')
   const callingRepo = process.cwd()
   process.chdir(__dirname)
   process.chdir('..')
