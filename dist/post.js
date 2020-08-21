@@ -8,6 +8,8 @@ console.log('INFO: removing init workflow from repository...')
 spawnSync('git', ['rm', '.github/workflows/init.yml'], { stdio: 'inherit' })
 console.log('SUCCESS: successfully removed workflow!')
 console.log('INFO: commiting and pushing changes...')
-spawnSync('git', ['commit', '-S', '-am', 'Initialized repository with correct naming'], { stdio: 'inherit' })
+const gpgSign = spawnSync('git', ['config', 'commit.gpgSign'], { stdio: 'inherit' }).stdout
+const commitParams = gpgSign.length > 0 ? ['commit', '-S', '-am', 'Initialized repository with correct naming'] : ['commit', '-am', 'Initialized repository with correct naming']
+spawnSync('git', commitParams, { stdio: 'inherit' })
 spawnSync('git', ['push'], { stdio: 'inherit' })
 console.log('SUCCESS: commited and pushed changes!')
