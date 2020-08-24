@@ -8,5 +8,7 @@ const repoType = core.getInput('repoType')
 kaskadiCLIManager(spawnSync, 'i')
 initRepo(spawnSync, repoType)
 kaskadiCLIManager(spawnSync, 'rm')
-cleanup(spawnSync)
-pushChanges(spawnSync)
+if (process.env.GITHUB_ACTIONS && process.env.GITHUB_REPOSITORY !== 'kaskadi/action-init') {
+  cleanup(spawnSync)
+  pushChanges(spawnSync)
+}
