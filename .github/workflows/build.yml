@@ -10,11 +10,15 @@ on:
       - 'test/**'
       - 'package.json'
 jobs:
-  build:
+  coverage:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: npm i
-    - name: Test
-      run: npm test
+    - name: Coverage
+      uses: paambaati/codeclimate-action@v2.4.0
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.REPORTER_ID }}
+      with:
+        coverageCommand: npm run coverage
