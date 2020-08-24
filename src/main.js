@@ -5,6 +5,7 @@ const initRepo = require('./helpers/init-repo.js')
 const cleanup = require('./helpers/cleanup.js')
 const pushChanges = require('./helpers/push-changes.js')
 const repoType = core.getInput('repoType')
+
 kaskadiCLIManager(spawnSync, 'i')
 initRepo(spawnSync, repoType)
 kaskadiCLIManager(spawnSync, 'rm')
