@@ -1,4 +1,4 @@
-[![Build status](https://img.shields.io/github/workflow/status/kaskadi/template-action/build?label=build&logo=mocha)](https://github.com/kaskadi/template-action/actions?query=workflow%3Abuild)
+[![Build status](https://img.shields.io/github/workflow/status/kaskadi/action-init/build?label=build&logo=mocha)](https://github.com/kaskadi/action-init/actions?query=workflow%3Abuild)
 
 **CodeClimate**
 
