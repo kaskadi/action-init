@@ -1,4 +1,5 @@
 const { spawnSync } = require('child_process')
+const path = require('path')
 
 module.exports = (steps) => {
   for (const step of steps) {
@@ -10,7 +11,7 @@ function runStep (step) {
   try {
     console.log(`INFO: running action ${step} step...`)
     console.log(`\n************ ${step.toUpperCase()} STEP OUTPUT START ************\n`)
-    spawnSync('node', [`src/${step}`], { stdio: 'inherit' })
+    spawnSync('node', [path.join(__dirname, '../..', `src/${step}`)], { stdio: 'inherit' })
     console.log(`\n************ ${step.toUpperCase()} STEP ACTION OUTPUT END ************\n`)
   } catch (err) {
     console.log(`ERROR: an error occured in ${step} step...`)
