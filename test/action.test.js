@@ -1,6 +1,6 @@
 /* eslint-env mocha */
-const runAction = require('./helpers/run-action.js')
-const steps = ['pre', 'main']
+// const runAction = require('./helpers/run-action.js')
+// const steps = ['pre', 'main']
 const chai = require('chai')
 const { assert } = require('chai')
 chai.should()
@@ -13,9 +13,9 @@ describe('action-init', function () {
   // if your describe/it callbacks are arrow functions, you need to use the following syntax: describe('...', () => {}).timeout(...) but be aware that this won't apply to hooks!
 
   // ******* Example tests
-  before(function () {
-    runAction(steps)
-  })
+  // before(function () {
+  //   runAction(steps)
+  // })
   describe('Placeholder test', function () {
     it('should pass', function () {
       const exp = true
