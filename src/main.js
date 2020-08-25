@@ -13,4 +13,4 @@ kaskadiCLIManager(spawnSync, 'rm')
 cleanup(spawnSync, test)
 pushChanges(spawnSync, test)
 
-// testing new logic
+// testing with new action
