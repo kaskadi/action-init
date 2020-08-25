@@ -18,9 +18,14 @@ const args = {
   layer: [...baseArgs, 'templateAction', 'workingData']
 }
 
-for (const repoType in args) {
-  describe(`${repoType} initialization`, describeHandler(repoType, args[repoType]))
-}
+describe('action-init', function () {
+  // ******* DO NOT REMOVE THIS TEST!
+  require('./pre/tests.js')
+  // *******
+  for (const repoType in args) {
+    describe(`${repoType} initialization`, describeHandler(repoType, args[repoType]))
+  }
+})
 
 function describeHandler (repoType, args) {
   const root = `test/${repoType}-data/`
