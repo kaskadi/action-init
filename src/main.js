@@ -12,5 +12,3 @@ initRepo(spawnSync, repoType)
 kaskadiCLIManager(spawnSync, 'rm')
 cleanup(spawnSync, test)
 pushChanges(spawnSync, test)
-
-// testing with new action
