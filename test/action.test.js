@@ -5,22 +5,25 @@ const copyData = require('./helpers/copy-data.js')
 const rimraf = require('rimraf')
 
 const folderName = 'working-data'
-const baseName = 'template-action'
-const baseArgs = [baseName, folderName]
 
 const testDir = process.cwd()
 
 const args = {
-  action: baseArgs,
-  api: baseArgs,
-  element: [...baseArgs, 'TemplateAction', 'WorkingData'],
-  lambda: [...baseArgs, 'templateAction', 'workingData'],
-  layer: [...baseArgs, 'templateAction', 'workingData']
+  action: ['template-action', folderName],
+  api: ['template-api', folderName],
+  element: ['template-element', folderName, 'TemplateElement', 'WorkingData'],
+  lambda: ['template-lambda', folderName, 'templateLambda', 'workingData'],
+  layer: ['template-layer', folderName, 'templateLayer', 'workingData']
 }
 
-for (const repoType in args) {
-  describe(`${repoType} initialization`, describeHandler(repoType, args[repoType]))
-}
+describe('action-init', function () {
+  // ******* DO NOT REMOVE THIS TEST!
+  require('./pre/tests.js')
+  // *******
+  for (const repoType in args) {
+    describe(`${repoType} initialization`, describeHandler(repoType, args[repoType]))
+  }
+})
 
 function describeHandler (repoType, args) {
   const root = `test/${repoType}-data/`
