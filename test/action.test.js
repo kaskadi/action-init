@@ -5,17 +5,15 @@ const copyData = require('./helpers/copy-data.js')
 const rimraf = require('rimraf')
 
 const folderName = 'working-data'
-const baseName = 'template-action'
-const baseArgs = [baseName, folderName]
 
 const testDir = process.cwd()
 
 const args = {
-  action: baseArgs,
-  api: baseArgs,
-  element: [...baseArgs, 'TemplateAction', 'WorkingData'],
-  lambda: [...baseArgs, 'templateAction', 'workingData'],
-  layer: [...baseArgs, 'templateAction', 'workingData']
+  action: ['template-action', folderName],
+  api: ['template-api', folderName],
+  element: ['template-element', folderName, 'TemplateElement', 'WorkingData'],
+  lambda: ['template-lambda', folderName, 'templateLambda', 'workingData'],
+  layer: ['template-layer', folderName, 'templateLayer', 'workingData']
 }
 
 describe('action-init', function () {
