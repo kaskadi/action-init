@@ -42,14 +42,7 @@ jobs:
         repoType: {YOUR-REPO-TYPE}
 ```
 
-The `repoType` input accepts the following values:
-- `action`
-- `api`
-- `lambda`
-- `element`
-- `layer`
-
-It determines which type of repository we're trying to initialize.
+**Note:** everything contained in single curly brackets (`{ }`) needs to be replaced by your desired values
 
 **If you do not need to sign your commits via GPG**: simply replace the `Import GPG key` step of the job by:
 ```
@@ -61,5 +54,7 @@ It determines which type of repository we're trying to initialize.
         GH_USER_NAME: ${{ secrets.{YOUR-GITHUB-USER-NAME} }}
         GH_USER_EMAIL: ${{ secrets.{YOUR-GITHUB-USER-EMAIL} }}
 ```
-
-**Note:** everything contained in single curly brackets (`{ }`) needs to be replaced by your desired values
+**Inputs:**
+|    Input   | Required | Default | Value accepted                                                                                              | Description                      |
+|:----------:|:--------:|:-------:|-------------------------------------------------------------------------------------------------------------|----------------------------------|
+| `repoType` |    Yes   |   N/A   | <ul>   <li>`action`</li>   <li>`api`</li>   <li>`lambda`</li>   <li>`element`</li>   <li>`layer`</li> </ul> | Type of repository to initialize |
