@@ -3,7 +3,9 @@ const path = require('path')
 
 module.exports = async (steps) => {
   for (const step of steps) {
-    await runStep(step).catch(process.exit)
+    await runStep(step).catch(() => {
+      throw new Error('An error occured while running your action...')
+    })
   }
 }
 
