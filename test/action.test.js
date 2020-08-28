@@ -6,7 +6,7 @@ const rimraf = require('rimraf')
 
 const folderName = 'working-data'
 
-const testDir = process.cwd()
+const wd = process.cwd()
 
 const args = {
   action: ['template-action', folderName],
@@ -26,9 +26,9 @@ describe('action-init', function () {
 })
 
 function describeHandler (repoType, args) {
-  const root = `test/${repoType}-data/`
-  const dataPath = `${root}data`
-  const workingDataPath = `${root}${folderName}`
+  const testDir = `test/${repoType}-data`
+  const dataPath = `${testDir}/data`
+  const workingDataPath = `${testDir}/${folderName}`
   return function () {
     this.timeout(60000)
     before(async () => {
@@ -36,9 +36,9 @@ function describeHandler (repoType, args) {
       process.env.INPUT_REPOTYPE = repoType
       process.chdir(workingDataPath)
       await runAction(steps)
-      process.chdir(testDir)
+      process.chdir(wd)
     })
-    require(`./${repoType}-data/tests.js`)(root, ...args)
+    require(`./${repoType}-data/tests.js`)(testDir, ...args)
     after(() => {
       rimraf.sync(workingDataPath)
     })
