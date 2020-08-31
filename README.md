@@ -14,7 +14,7 @@
 
 # What is this action for?
 
-This action is initializing new repositories generated from the templates in `Kaskadi`.
+This action is initializing new repositories generated from the templates in `Kaskadi`
 
 # How to use it?
 
@@ -28,6 +28,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
+    - name: {YOUR-STEP-NAME}
+      uses: kaskadi/action-init@master
+      with:
+        repoType: {REPOTYPE-VALUE}
+```
+
+**Note:** everything contained in single curly brackets (`{ }`) needs to be replaced by your desired values
+
+**Inputs:**
+|    Input   | Required | Default | Description                                                                                          |
+| :--------: | :------: | :-----: | :--------------------------------------------------------------------------------------------------- |
+| `repoType` |  `true`  |         | Type of repository to initialize. Accepted values are: `action`, `api`, `lambda`, `element`, `layer` |
+
+**In order to sign the commit for your newly generated docs via GPG**: add the following `step` before the actual documentation generation step:
+```
     - name: Import GPG key
       uses: crazy-max/ghaction-import-gpg@v2
       with:
@@ -36,15 +51,9 @@ jobs:
       env:
         GPG_PRIVATE_KEY: ${{ secrets.{YOUR-GPG-PRIVATE-KEY} }}
         PASSPHRASE: ${{ secrets.{YOUR-GPG-PRIVATE-KEY-PASSPHRASE} }}
-    - name: {YOUR-STEP-NAME}
-      uses: kaskadi/action-init@master
-      with:
-        repoType: {YOUR-REPO-TYPE}
 ```
 
-**Note:** everything contained in single curly brackets (`{ }`) needs to be replaced by your desired values
-
-**If you do not need to sign your commits via GPG**: simply replace the `Import GPG key` step of the job by:
+**If you do not need to sign your commit via GPG**: simply replace the `Import GPG key` step of the job by:
 ```
     - name: Configure GitHub user
       run: |
@@ -54,7 +63,3 @@ jobs:
         GH_USER_NAME: ${{ secrets.{YOUR-GITHUB-USER-NAME} }}
         GH_USER_EMAIL: ${{ secrets.{YOUR-GITHUB-USER-EMAIL} }}
 ```
-**Inputs:**
-|    Input   | Required | Default | Value accepted                                                                                              | Description                      |
-|:----------:|:--------:|:-------:|-------------------------------------------------------------------------------------------------------------|----------------------------------|
-| `repoType` |    Yes   |   N/A   | <ul>   <li>`action`</li>   <li>`api`</li>   <li>`lambda`</li>   <li>`element`</li>   <li>`layer`</li> </ul> | Type of repository to initialize |
