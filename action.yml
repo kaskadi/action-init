@@ -1,8 +1,8 @@
 name: 'action-init'
-description: 'a GitHub action to initialize repositories created from templates in Kaskadi'
+description: 'This action is initializing new repositories generated from the templates in `Kaskadi`'
 inputs:
   repoType:
-    description: 'Type of repository to initialize'
+    description: 'Type of repository to initialize. Accepted values are: `action`, `api`, `lambda`, `element`, `layer`'
     required: true
 runs:
   using: 'node12'
