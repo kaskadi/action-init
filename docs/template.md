@@ -13,7 +13,7 @@
 ****
 
 {{>main}}
-**In order to sign the commit made by this action**: add the following `step` before the actual initialization step:
+**In order to sign the commit made by this action**: add the following `step` before the one using `action-init`:
 ```
     - name: Import GPG key
       uses: crazy-max/ghaction-import-gpg@v2
