@@ -41,7 +41,7 @@ jobs:
 | :--------: | :------: | :-----: | :--------------------------------------------------------------------------------------------------- |
 | `repoType` |  `true`  |         | Type of repository to initialize. Accepted values are: `action`, `api`, `lambda`, `element`, `layer` |
 
-**In order to sign the commit for your newly generated docs via GPG**: add the following `step` before the actual documentation generation step:
+**In order to sign the commit made by this action**: add the following `step` before the one using `action-init`:
 ```
     - name: Import GPG key
       uses: crazy-max/ghaction-import-gpg@v2
@@ -53,7 +53,7 @@ jobs:
         PASSPHRASE: ${{ secrets.{YOUR-GPG-PRIVATE-KEY-PASSPHRASE} }}
 ```
 
-**If you do not need to sign your commit via GPG**: simply replace the `Import GPG key` step of the job by:
+**If you do not need to sign via GPG**: simply replace the `Import GPG key` step of the job by:
 ```
     - name: Configure GitHub user
       run: |
