@@ -12,8 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Install dependencies
-      run: npm i
     - name: Import GPG key
       uses: crazy-max/ghaction-import-gpg@v2
       with:
