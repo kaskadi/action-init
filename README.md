@@ -20,7 +20,7 @@ This action is initializing new repositories generated from the templates in `Ka
 
 You can use the following code as a new _GitHub Actions Workflow_:
 
-```
+```yaml
 name: {YOUR-ACTION-NAME}
 on: [{YOUR-ACTION-EVENT}]
 jobs:
@@ -42,7 +42,7 @@ jobs:
 | `repoType` |  `true`  |         | Type of repository to initialize. Accepted values are: `action`, `api`, `lambda`, `element`, `layer` |
 
 **In order to sign the commit made by this action**: add the following `step` before the one using `action-init`:
-```
+```yaml
     - name: Import GPG key
       uses: crazy-max/ghaction-import-gpg@v2
       with:
@@ -54,7 +54,7 @@ jobs:
 ```
 
 **If you do not need to sign via GPG**: simply replace the `Import GPG key` step of the job by:
-```
+```yaml
     - name: Configure GitHub user
       run: |
         git config --global user.name $GH_USER_NAME
