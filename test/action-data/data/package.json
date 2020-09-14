@@ -20,5 +20,7 @@
   "bugs": {
     "url": "https://github.com/kaskadi/template-action/issues"
   },
-  "homepage": "https://github.com/kaskadi/template-action#readme"
+  "homepage": "https://github.com/kaskadi/template-action#readme",
+  "dependencies": {},
+  "devDependencies": {}
 }

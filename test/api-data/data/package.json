@@ -21,8 +21,6 @@
     "url": "https://github.com/kaskadi/template-kaskadi-api/issues"
   },
   "homepage": "https://github.com/kaskadi/template-kaskadi-api#readme",
-  "devDependencies": {
-    "serverless-aws-documentation": "^1.1.0"
-  },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {}
 }

@@ -1,14 +1,14 @@
 {
-  "name": "template-kaskadi-lambda",
+  "name": "working-data",
   "version": "1.0.0",
   "description": "",
-  "main": "serverless.yml",
+  "main": "main.js",
   "scripts": {
-    "test": "echo \"No test script defined.\""
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kaskadi/template-kaskadi-lambda.git"
+    "url": "git+https://github.com/kaskadi/working-data.git"
   },
   "keywords": [],
   "author": "Klimapartner GmbH <kontakt@klimapartner.de> (https://klimapartner.de)",
@@ -18,9 +18,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/kaskadi/template-kaskadi-lambda/issues"
+    "url": "https://github.com/kaskadi/working-data/issues"
   },
-  "homepage": "https://github.com/kaskadi/template-kaskadi-lambda#readme",
+  "homepage": "https://github.com/kaskadi/working-data#readme",
   "dependencies": {},
   "devDependencies": {}
 }

@@ -13,7 +13,8 @@ const args = {
   api: ['template-api', folderName],
   element: ['template-element', folderName, 'TemplateElement', 'WorkingData'],
   lambda: ['template-lambda', folderName, 'templateLambda', 'workingData'],
-  layer: ['template-layer', folderName, 'templateLayer', 'workingData']
+  layer: ['template-layer', folderName, 'templateLayer', 'workingData'],
+  package: ['template-npm-pkg', folderName]
 }
 
 describe('action-init', function () {
