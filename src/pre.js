@@ -3,9 +3,7 @@ const path = require('path')
 
 function installDependencies () {
   console.log('INFO: installing action dependencies...')
-  console.log('************ NPM ouput ************')
-  spawnSync('npm', ['i', '--only=prod'], { stdio: 'inherit' })
-  console.log('************ End of NPM ouput ************')
+  spawnSync('npm', ['i', '--only=prod'])
   console.log('SUCCESS: dependencies installed!')
 }
 
