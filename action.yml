@@ -4,6 +4,9 @@ inputs:
   repoType:
     description: 'Type of repository to initialize. Accepted values are: `action`, `api`, `lambda`, `element`, `layer`'
     required: true
+env:
+  CC_TOKEN:
+    description: '_Code Climate_ token used for authenticating with _Code Climate_ API. **If this is not provided the action will not automatically add your repository to _Code Climate_.**'
 runs:
   using: 'node12'
   pre: 'src/pre.js'
