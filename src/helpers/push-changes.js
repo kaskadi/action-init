@@ -1,14 +1,13 @@
-const addFlag = require('./add-flag.js')
-
-module.exports = (spawnSync, test) => {
+module.exports = (spawnSync) => {
   console.log('INFO: commiting and pushing changes...')
   const gpgSign = spawnSync('git', ['config', 'commit.gpgSign']).stdout
   let commitParams = ['commit', '-am', 'Initialized repository with correct naming']
   commitParams = gpgSign.length > 0 ? addFlag(commitParams, '-S') : commitParams
-  commitParams = test ? addFlag(commitParams, '--dry-run') : commitParams
   spawnSync('git', commitParams, { stdio: 'inherit' })
-  let pushParams = ['push']
-  pushParams = test ? addFlag(pushParams, '--dry-run') : pushParams
-  spawnSync('git', pushParams, { stdio: 'inherit' })
+  spawnSync('git', ['push'], { stdio: 'inherit' })
   console.log('SUCCESS: commited and pushed changes!')
+}
+
+function addFlag (args, flag) {
+  return [...args.slice(0, 1), flag, ...args.slice(1)]
 }
