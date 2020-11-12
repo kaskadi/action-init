@@ -47,6 +47,6 @@ function addRepo (repo, token) {
   }
   return fetch('https://api.codeclimate.com/v1/github/repos', init)
     .then(res => {
-      console.log('SUCCESS: repository added to Code Climate')
+      console.log('SUCCESS: repository added to Code Climate!')
     })
 }
