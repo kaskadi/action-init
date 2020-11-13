@@ -1,5 +1,7 @@
+const gitOp = require('./git-op.js')
+
 module.exports = (spawnSync) => {
   console.log('INFO: removing init workflow from repository...')
-  spawnSync('git', ['rm', '.github/workflows/init.yml'], { stdio: 'inherit' })
+  gitOp(spawnSync, 'rm', ['.github/workflows/init.yml'])
   console.log('SUCCESS: successfully removed workflow!')
 }

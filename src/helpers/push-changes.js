@@ -1,13 +1,13 @@
+const gitOp = require('./git-op.js')
+
 module.exports = (spawnSync) => {
   console.log('INFO: commiting and pushing changes...')
   const gpgSign = spawnSync('git', ['config', 'commit.gpgSign']).stdout
-  let commitParams = ['commit', '-am', 'Initialized repository with correct naming']
-  commitParams = gpgSign.length > 0 ? addFlag(commitParams, '-S') : commitParams
-  spawnSync('git', commitParams, { stdio: 'inherit' })
-  spawnSync('git', ['push'], { stdio: 'inherit' })
+  let commitParams = ['-am', 'Initialized repository with correct naming']
+  if (gpgSign.length > 0) {
+    commitParams = ['-S', ...commitParams]
+  }
+  gitOp(spawnSync, 'commit', commitParams)
+  gitOp(spawnSync, 'push')
   console.log('SUCCESS: commited and pushed changes!')
-}
-
-function addFlag (args, flag) {
-  return [...args.slice(0, 1), flag, ...args.slice(1)]
 }
