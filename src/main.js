@@ -14,9 +14,7 @@ async function main () {
   kaskadiCLIManager(spawnSync, 'rm')
   cleanup(spawnSync)
   pushChanges(spawnSync)
-  if (!process.env.TEST_ENV) {
-    await addRepo()
-  }
+  await addRepo()
 }
 
 main()
