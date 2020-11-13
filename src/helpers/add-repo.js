@@ -3,7 +3,7 @@ const fetch = (url, init = {}) => {
     // in test environment we proxy the request to our local test server
     url = url.replace(new URL(url).origin, `http://localhost:${process.env.TEST_SERV_PORT}`)
   }
-  require('node-fetch')(url, init)
+  return require('node-fetch')(url, init)
 }
 
 module.exports = () => {
