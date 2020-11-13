@@ -7,15 +7,14 @@ const pushChanges = require('./helpers/push-changes.js')
 const addRepo = require('./helpers/add-repo.js')
 
 const repoType = core.getInput('repoType')
-const test = process.env.TEST_ENV ? JSON.parse(process.env.TEST_ENV) : false
 
 async function main () {
   kaskadiCLIManager(spawnSync, 'i')
   initRepo(spawnSync, repoType)
   kaskadiCLIManager(spawnSync, 'rm')
-  if (!test) {
-    cleanup(spawnSync)
-    pushChanges(spawnSync)
+  cleanup(spawnSync)
+  pushChanges(spawnSync)
+  if (!process.env.TEST_ENV) {
     await addRepo()
   }
 }
