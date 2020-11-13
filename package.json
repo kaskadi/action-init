@@ -25,11 +25,13 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "deep-equal": "^2.0.3",
-    "mocha": "^8.1.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "mocha": "^8.2.1",
     "ncp": "^2.0.0",
     "nyc": "^15.1.0",
     "rimraf": "^3.0.2",
-    "standard": "^14.3.4"
+    "standard": "^16.0.2"
   },
   "nyc": {
     "reporter": [
@@ -40,6 +42,7 @@
     "report-dir": "./coverage"
   },
   "dependencies": {
-    "@actions/core": "^1.2.6"
+    "@actions/core": "^1.2.6",
+    "node-fetch": "^2.6.1"
   }
 }

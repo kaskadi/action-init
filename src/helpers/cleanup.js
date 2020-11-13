@@ -1,9 +1,7 @@
-const addFlag = require('./add-flag.js')
+const gitOp = require('./git-op.js')
 
-module.exports = (spawnSync, test) => {
+module.exports = (spawnSync) => {
   console.log('INFO: removing init workflow from repository...')
-  let args = ['rm', '.github/workflows/init.yml']
-  args = test ? addFlag(args, '--dry-run') : args
-  spawnSync('git', args, { stdio: 'inherit' })
+  gitOp(spawnSync, 'rm', ['.github/workflows/init.yml'])
   console.log('SUCCESS: successfully removed workflow!')
 }
