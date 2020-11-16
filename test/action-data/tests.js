@@ -32,10 +32,4 @@ module.exports = (root, baseName, folderName) => {
     const test = deepEqual(pjson, pjsonValid)
     test.should.equal(true)
   })
-  it(`should rename all occurences of ${baseName} to ${folderName} in src/pre.js`, () => {
-    const pjson = fs.readFileSync(`${root}/working-data/src/pre.js`, 'utf8')
-    const pjsonValid = fs.readFileSync(`${root}/validation/src/pre.js`, 'utf8')
-    const test = deepEqual(pjson, pjsonValid)
-    test.should.equal(true)
-  })
 }

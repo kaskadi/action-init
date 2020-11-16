@@ -2,7 +2,6 @@
 require('dotenv').config({ path: `${process.cwd()}/test/.env` })
 const runAction = require('./helpers/run-action.js')
 const { spawn } = require('child_process')
-const steps = ['pre', 'main']
 const copyData = require('./helpers/copy-data.js')
 const rimraf = require('rimraf')
 const should = require('chai').should()
@@ -99,7 +98,7 @@ function describeHandler (repoType, args, postRunTests) {
       await copyData(dataPath, workingDataPath)
       process.env.INPUT_REPOTYPE = repoType
       process.chdir(workingDataPath)
-      await runAction(steps)
+      await runAction(['main'])
       process.chdir(wd)
     })
     if (postRunTests) {
