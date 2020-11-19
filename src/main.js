@@ -5,6 +5,8 @@ const initRepo = require('./helpers/init-repo.js')
 const cleanup = require('./helpers/cleanup.js')
 const pushChanges = require('./helpers/push-changes.js')
 const addRepo = require('./helpers/add-repo.js')
+const fetch = require('./helpers/fetch.js')
+const checkStatus = require('./helpers/check-status.js')
 
 const repoType = core.getInput('repoType')
 
@@ -14,7 +16,7 @@ async function main () {
   kaskadiCLIManager(spawnSync, 'rm')
   cleanup(spawnSync)
   pushChanges(spawnSync)
-  await addRepo().catch(console.log)
+  await addRepo({ fetch, checkStatus }).catch(console.log)
 }
 
 main()
