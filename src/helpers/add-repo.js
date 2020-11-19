@@ -50,5 +50,18 @@ async function addRepo (repo, token) {
     },
     body: JSON.stringify(body)
   }
-  return fetch('https://api.codeclimate.com/v1/github/repos', init).then(res => { console.log('SUCCESS: repository added to Code Climate!') })
+  return fetch('https://api.codeclimate.com/v1/github/repos', init)
+    .then(checkStatus('ERROR: could not add repository to Code Climate...'))
+    .then(() => { console.log('SUCCESS: repository added to Code Climate!') })
+}
+
+function checkStatus (errorMsg) {
+  return res => {
+    if (res.ok) {
+      return res
+    } else {
+      console.log(res.statusText)
+      throw new Error(errorMsg)
+    }
+  }
 }
