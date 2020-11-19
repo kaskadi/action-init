@@ -14,7 +14,7 @@ async function main () {
   kaskadiCLIManager(spawnSync, 'rm')
   cleanup(spawnSync)
   pushChanges(spawnSync)
-  await addRepo()
+  await addRepo().catch(console.log)
 }
 
 main()
