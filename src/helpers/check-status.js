@@ -1,5 +1,5 @@
-module.exports = (errorMsg) => res => new Promise((resolve, reject) => {
-  if (res.ok) {
+module.exports = (errorMsg, validityAnalyzer = res => res.ok) => res => new Promise((resolve, reject) => {
+  if (validityAnalyzer(res)) {
     resolve(res)
   } else {
     console.log(res.statusText)
