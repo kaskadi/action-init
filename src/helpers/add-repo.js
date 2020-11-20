@@ -4,23 +4,18 @@ module.exports = (utils, repo) => {
   if (!token) {
     return Promise.reject('ERROR: no CC_TOKEN environment variable found. Please provide your Code Climate token as CC_TOKEN environment variable...')
   }
-  return checkRepo(utils, repo)
-    .then(repoExists => {
-      if (!repoExists) {
-        return Promise.reject(`ERROR: repository ${repo} is either private or does not exist. Not proceeding to add it to Code Climate...`)
-      }
-      return addRepo(utils, repo, token)
-    })
+  return checkRepo(utils, repo).then(() => addRepo(utils, repo, token))
 }
 
-function checkRepo ({ fetch }, repo) {
+function checkRepo ({ fetch, checkStatus }, repo) {
   const init = {
     method: 'GET',
     headers: {
       Accept: 'application/vnd.github.v3+json'
     }
   }
-  return fetch(`https://api.github.com/repos/${repo}`, init).then(res => res.status === 200)
+  return fetch(`https://api.github.com/repos/${repo}`, init)
+    .then(checkStatus(`ERROR: oops, something unexpected happened... If this does not come from a server issue, then the repository ${repo} may either be private or non existant. Not proceeding to add it to Code Climate...`, res => res.status === 200)) // this will be a rejected promise if the status of the response is not 200
 }
 
 function addRepo ({ fetch, checkStatus }, repo, token) {
