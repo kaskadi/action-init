@@ -4,6 +4,10 @@ module.exports = (utils, repo) => repoData => {
   if (!ghToken) {
     return Promise.reject('ERROR: no GH_ACCESS_TOKEN environment variable found. Please provide your GitHub personal access token with repo scope as GH_ACCESS_TOKEN environment variable...')
   }
+  const reporterId = repoData.data.attributes.test_reporter_id
+  if (!reporterId) {
+    return Promise.reject('ERROR: no test reporter ID was provided by Code Climate - it may be that the repository is not ready on their side just yet. Please proceed to add the CC_REPORTER_ID secret to your GitHub repository manually...')
+  }
   const baseInit = {
     method: 'GET',
     headers: {
@@ -11,7 +15,7 @@ module.exports = (utils, repo) => repoData => {
       Authorization: `Bearer ${ghToken}`
     }
   }
-  return getPublicKey(utils, repo, baseInit).then(addSecret(utils, repo, repoData, baseInit))
+  return getPublicKey(utils, repo, baseInit).then(addSecret(utils, repo, reporterId, baseInit))
 }
 
 function getPublicKey ({ fetch, checkStatus }, repo, baseInit) {
@@ -24,12 +28,8 @@ function getPublicKey ({ fetch, checkStatus }, repo, baseInit) {
     })
 }
 
-function addSecret ({ fetch, checkStatus }, repo, repoData, baseInit) {
+function addSecret ({ fetch, checkStatus }, repo, reporterId, baseInit) {
   return pubKey => {
-    const reporterId = repoData.data.attributes.test_reporter_id
-    if (!reporterId) {
-      return Promise.reject('ERROR: no test reporter ID was provided by Code Climate - it may be that the repository is not ready on their side just yet. Please proceed to add the CC_REPORTER_ID secret to your GitHub repository manually...')
-    }
     console.log('INFO: updating CC_REPORTER_ID secret in repository...')
     const sodium = require('tweetsodium')
     const idBytes = Buffer.from(reporterId)
