@@ -32,6 +32,7 @@ jobs:
         repoType: {REPOTYPE-VALUE}
       env:
         CC_TOKEN: {CC_TOKEN-VALUE}
+        GH_ACCESS_TOKEN: {GH_ACCESS_TOKEN-VALUE}
 ```
 
 **Note:** everything contained in single curly brackets (`{ }`) needs to be replaced by your desired values
@@ -42,9 +43,10 @@ jobs:
 | `repoType` |  `true`  |         | Type of repository to initialize. Accepted values are: `action`, `api`, `lambda`, `element`, `layer` |
 
 **Environment variables:**
-|  Variable  | Required | Description                                                                                                                                                                |
-| :--------: | :------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `CC_TOKEN` |  `false` | _Code Climate_ token used for authenticating with _Code Climate_ API. **If this is not provided the action will not automatically add your repository to _Code Climate_.** |
+|      Variable     | Required | Description                                                                                                                                                                                                                                      |
+| :---------------: | :------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|     `CC_TOKEN`    |  `false` | _Code Climate_ token used for authenticating with _Code Climate_ API. **If this is not provided the action will not automatically add your repository to _Code Climate_.**                                                                       |
+| `GH_ACCESS_TOKEN` |  `false` | _GitHub_ personal access token used for interacting with the calling GitHub repository. This must at least contain the `repo` scope to work as intended. **If the token is not provided the action will not automatically update your secrets.** |
 
 **In order to sign the commit made by this action**: add the following `step` before the one using `action-init`:
 ```yaml
