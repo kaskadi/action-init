@@ -13,7 +13,7 @@ function updateOutput (field, value) {
 }
 
 app.get('/repos/:owner/:name', (req, res) => {
-  updateOutput('GITHUB_API_CALL', true)
+  updateOutput('GITHUB_API_REPO_CALL', true)
   const { owner, name } = req.params
   if (owner === 'test' && name === 'test') {
     updateOutput('REPO_PUBLIC', true)
@@ -24,9 +24,28 @@ app.get('/repos/:owner/:name', (req, res) => {
   }
 })
 
+app.get('/repos/:owner/:name/actions/secrets/public-key', (req, res) => {
+  updateOutput('GITHUB_API_PK_CALL', true)
+  res.json({
+    key_id: '012345678912345678',
+    key: 'FFmX54M5acBsXctw0BSt79PtUFMMLVc/6qtNqfMOm64='
+  })
+})
+
+app.put('/repos/:owner/:name/actions/secrets/:secret_name', (req, res) => {
+  updateOutput('GITHUB_API_SECRET_CALL', true)
+  res.status(204).json({})
+})
+
 app.post('/v1/github/repos', (req, res) => {
   updateOutput('CC_API_CALL', true)
-  res.status(201).json({})
+  res.status(201).json({
+    data: {
+      attributes: {
+        test_reporter_id: Buffer.from('a1b4').toString('base64')
+      }
+    }
+  })
 })
 
 app.listen(port, () => {
