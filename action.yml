@@ -7,6 +7,8 @@ inputs:
 env:
   CC_TOKEN:
     description: '_Code Climate_ token used for authenticating with _Code Climate_ API. **If this is not provided the action will not automatically add your repository to _Code Climate_.**'
+  GH_ACCESS_TOKEN:
+    description: '_GitHub_ personal access token used for interacting with the calling GitHub repository. This must at least contain the `repo` scope to work as intended. **If the token is not provided the action will not automatically update your secrets.**'
 runs:
   using: 'node12'
   pre: 'src/pre.js'
