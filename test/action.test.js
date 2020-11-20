@@ -47,7 +47,7 @@ describe('action-init', function () {
   for (const repoType in args) {
     describe(`${repoType} initialization`, describeHandler(repoType, args[repoType]))
   }
-  describe('missing token', describeHandler('action', args.action, () => {
+  describe('missing Code Climate token', describeHandler('action', args.action, () => {
     it('should not send requests to GitHub and Code Climate API if no Code Climate token is provided', () => {
       servOutput = readServerOutput(outputPath)
       should.not.exist(servOutput.GITHUB_API_REPO_CALL)
@@ -70,8 +70,19 @@ describe('action-init', function () {
       process.env.GITHUB_REPOSITORY = 'test/test'
     })
   }))
-  describe('public repo', describeHandler('action', args.action, () => {
-    it('should send requests to GitHub and Code Climate if token is defined and repository is public', () => {
+  describe('public repo no GitHub personal access token', describeHandler('action', args.action, () => {
+    it('should send requests only to GitHub repository endpoint and Code Climate if Code Climate token is defined but not GitHub personal access token and repository is public', () => {
+      servOutput = readServerOutput(outputPath)
+      servOutput.GITHUB_API_REPO_CALL.should.equal(true)
+      servOutput.REPO_PUBLIC.should.equal(true)
+      servOutput.CC_API_CALL.should.equal(true)
+      should.not.exist(servOutput.GITHUB_API_PK_CALL)
+      should.not.exist(servOutput.GITHUB_API_SECRET_CALL)
+      process.env.GH_ACCESS_TOKEN = 'abc'
+    })
+  }))
+  describe('public repo with GitHub personal access token', describeHandler('action', args.action, () => {
+    it('should send requests to GitHub endpoints and Code Climate if Code Climate & GitHub personal access tokens are defined and repository is public', () => {
       servOutput = readServerOutput(outputPath)
       servOutput.GITHUB_API_REPO_CALL.should.equal(true)
       servOutput.REPO_PUBLIC.should.equal(true)
