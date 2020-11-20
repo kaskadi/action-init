@@ -5,18 +5,22 @@ const initRepo = require('./helpers/init-repo.js')
 const cleanup = require('./helpers/cleanup.js')
 const pushChanges = require('./helpers/push-changes.js')
 const addRepo = require('./helpers/add-repo.js')
-const fetch = require('./helpers/fetch.js')
-const checkStatus = require('./helpers/check-status.js')
-
-const repoType = core.getInput('repoType')
+const addReporterId = require('./helpers/add-reporter-id.js')
+const utils = {
+  fetch: require('./helpers/fetch.js'),
+  checkStatus: require('./helpers/check-status.js')
+}
 
 async function main () {
   kaskadiCLIManager(spawnSync, 'i')
-  initRepo(spawnSync, repoType)
+  initRepo(spawnSync, core.getInput('repoType'))
   kaskadiCLIManager(spawnSync, 'rm')
   cleanup(spawnSync)
   pushChanges(spawnSync)
-  await addRepo({ fetch, checkStatus }).catch(console.log)
+  const repo = process.env.GITHUB_REPOSITORY
+  await addRepo(utils, repo)
+    .then(addReporterId(utils, repo))
+    .catch(console.log)
 }
 
 main()
