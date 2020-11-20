@@ -7,6 +7,7 @@ const pushChanges = require('./helpers/push-changes.js')
 const addRepo = require('./helpers/add-repo.js')
 const addReporterId = require('./helpers/add-reporter-id.js')
 const utils = {
+  core,
   fetch: require('./helpers/fetch.js'),
   checkStatus: require('./helpers/check-status.js')
 }
