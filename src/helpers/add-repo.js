@@ -8,6 +8,7 @@ module.exports = (utils, repo) => {
 }
 
 function checkRepo ({ fetch, checkStatus }, repo) {
+  console.log(`INFO: fetching ${repo} meta data from GitHub...`)
   const init = {
     method: 'GET',
     headers: {
