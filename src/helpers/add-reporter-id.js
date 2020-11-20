@@ -28,7 +28,11 @@ function addSecret ({ fetch, checkStatus }, repo, repoData, baseInit) {
   return pubKey => {
     console.log('INFO: updating CC_REPORTER_ID secret in repository...')
     const sodium = require('tweetsodium')
-    const idBytes = Buffer.from(repoData.data.attributes.test_reporter_id)
+    const reporterId = repoData.data.attributes.test_reporter_id
+    if (!reporterId) {
+      return Promise.reject('ERROR: no test reporter ID was provided by Code Climate - it may be that the repository is not ready on their side just yet. Please proceed to add the CC_REPORTER_ID secret to your GitHub repository manually...')
+    }
+    const idBytes = Buffer.from(reporterId)
     const keyBytes = Buffer.from(pubKey.key, 'base64')
     const encryptedBytes = sodium.seal(idBytes, keyBytes)
     const body = {
