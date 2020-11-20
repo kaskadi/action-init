@@ -15,13 +15,18 @@ module.exports = (utils, repo) => repoData => {
 }
 
 function getPublicKey ({ fetch, checkStatus }, repo, baseInit) {
+  console.log('INFO: retrieving repository secrets\' public key...')
   return fetch(`https://api.github.com/repos/${repo}/actions/secrets/public-key`, { ...baseInit })
     .then(checkStatus(`ERROR: unable to retrieve public key for ${repo}. To make sure this does not come from access right to GitHub API, please provide a GITHUB_TOKEN to this action which has repo scope.`))
-    .then(res => res.json())
+    .then(res => {
+      console.log('SUCCESS: successfully retrieved repository secrets\' public key!')
+      return res.json()
+    })
 }
 
 function addSecret ({ fetch, checkStatus }, repo, repoData, baseInit) {
   return pubKey => {
+    console.log('INFO: updating CC_REPORTER_ID secret in repository...')
     const sodium = require('tweetsodium')
     const idBytes = Buffer.from(repoData.data.attributes.test_reporter_id)
     const keyBytes = Buffer.from(pubKey.key, 'base64')
@@ -37,5 +42,8 @@ function addSecret ({ fetch, checkStatus }, repo, repoData, baseInit) {
     }
     return fetch(`https://api.github.com/repos/${repo}/actions/secrets/CC_REPORTER_ID`, init)
       .then(checkStatus(`ERROR: unable to set CC_REPORTER_ID secret for ${repo}. To make sure this does not come from access right to GitHub API, please provide a GITHUB_TOKEN to this action which has repo scope.`))
+      .then(() => {
+        console.log('SUCCESS: successfully updated CC_REPORTER_ID secret in repository!')
+      })
   }
 }
