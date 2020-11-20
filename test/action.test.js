@@ -50,7 +50,9 @@ describe('action-init', function () {
   describe('missing token', describeHandler('action', args.action, () => {
     it('should not send requests to GitHub and Code Climate API if no Code Climate token is provided', () => {
       servOutput = readServerOutput(outputPath)
-      should.not.exist(servOutput.GITHUB_API_CALL)
+      should.not.exist(servOutput.GITHUB_API_REPO_CALL)
+      should.not.exist(servOutput.GITHUB_API_PK_CALL)
+      should.not.exist(servOutput.GITHUB_API_SECRET_CALL)
       should.not.exist(servOutput.REPO_PUBLIC)
       should.not.exist(servOutput.CC_API_CALL)
       process.env.CC_TOKEN = 'abc'
@@ -58,20 +60,24 @@ describe('action-init', function () {
     })
   }))
   describe('no repo/repo private', describeHandler('action', args.action, () => {
-    it('should send a request to GitHub but not Code Climate if token is defined and repository does not exist/is private', () => {
+    it('should send a request to GitHub repository endpoint but not Code Climate and GitHub secret related endpoints if token is defined and repository does not exist/is private', () => {
       servOutput = readServerOutput(outputPath)
-      servOutput.GITHUB_API_CALL.should.equal(true)
+      servOutput.GITHUB_API_REPO_CALL.should.equal(true)
       servOutput.REPO_PUBLIC.should.equal(false)
       should.not.exist(servOutput.CC_API_CALL)
+      should.not.exist(servOutput.GITHUB_API_PK_CALL)
+      should.not.exist(servOutput.GITHUB_API_SECRET_CALL)
       process.env.GITHUB_REPOSITORY = 'test/test'
     })
   }))
   describe('public repo', describeHandler('action', args.action, () => {
-    it('should send a request to GitHub and Code Climate if token is defined and repository is public', () => {
+    it('should send requests to GitHub and Code Climate if token is defined and repository is public', () => {
       servOutput = readServerOutput(outputPath)
-      servOutput.GITHUB_API_CALL.should.equal(true)
+      servOutput.GITHUB_API_REPO_CALL.should.equal(true)
       servOutput.REPO_PUBLIC.should.equal(true)
       servOutput.CC_API_CALL.should.equal(true)
+      servOutput.GITHUB_API_PK_CALL.should.equal(true)
+      servOutput.GITHUB_API_SECRET_CALL.should.equal(true)
       delete process.env.CC_TOKEN
       delete process.env.GITHUB_REPOSITORY
     })

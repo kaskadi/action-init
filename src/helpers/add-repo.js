@@ -1,44 +1,29 @@
-const fetch = (url, init = {}) => {
-  if (process.env.TEST_ENV) {
-    // in test environment we proxy the request to our local test server
-    url = url.replace(new URL(url).origin, `http://localhost:${process.env.TEST_SERV_PORT}`)
-  }
-  return require('node-fetch')(url, init)
-}
-
-module.exports = () => {
+/* eslint prefer-promise-reject-errors: off */
+module.exports = (utils, repo) => {
   const token = process.env.CC_TOKEN
   if (!token) {
-    console.log('ERROR: no CC_TOKEN environment variable found. Please provide your Code Climate token as CC_TOKEN environment variable...')
-    return
+    return Promise.reject('ERROR: no CC_TOKEN environment variable found. Please provide your Code Climate token as CC_TOKEN environment variable...')
   }
-  const repo = process.env.GITHUB_REPOSITORY
-  return addRepo(repo, token)
+  return checkRepo(utils, repo).then(() => addRepo(utils, repo, token))
 }
 
-function checkRepo (repo) {
+function checkRepo ({ fetch, checkStatus }, repo) {
   const init = {
     method: 'GET',
     headers: {
       Accept: 'application/vnd.github.v3+json'
     }
   }
-  return fetch(`https://api.github.com/repos/${repo}`, init).then(res => res.status === 200)
+  return fetch(`https://api.github.com/repos/${repo}`, init)
+    .then(checkStatus(`ERROR: oops, something unexpected happened... If this does not come from a server issue, then the repository ${repo} may either be private or non existant. Not proceeding to add it to Code Climate...`, res => res.status === 200)) // this will be a rejected promise if the status of the response is not 200
 }
 
-async function addRepo (repo, token) {
-  const repoExists = await checkRepo(repo)
-  if (!repoExists) {
-    console.log(`ERROR: repository ${repo} is either private or does not exist. Not proceeding to add it to Code Climate...`)
-    return
-  }
+function addRepo ({ fetch, checkStatus }, repo, token) {
   console.log('INFO: adding repository to Code Climate...')
   const body = {
     data: {
       type: 'repos',
-      attributes: {
-        url: `https://github.com/${repo}`
-      }
+      attributes: { url: `https://github.com/${repo}` }
     }
   }
   const init = {
@@ -50,5 +35,10 @@ async function addRepo (repo, token) {
     },
     body: JSON.stringify(body)
   }
-  return fetch('https://api.codeclimate.com/v1/github/repos', init).then(res => { console.log('SUCCESS: repository added to Code Climate!') })
+  return fetch('https://api.codeclimate.com/v1/github/repos', init)
+    .then(checkStatus('ERROR: could not add repository to Code Climate...'))
+    .then(res => {
+      console.log('SUCCESS: repository added to Code Climate!')
+      return res.json()
+    })
 }
