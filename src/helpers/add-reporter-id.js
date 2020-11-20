@@ -7,8 +7,8 @@ module.exports = (utils, repo) => repoData => {
   }
   const reporterId = repoData.data.attributes.test_reporter_id
   if (!reporterId) {
-    utils.core.warning('Unable to automatically set CC_REPORTER_ID secret, please update it manually.')
-    return Promise.reject('ERROR: no test reporter ID was provided by Code Climate - it may be that the repository is not ready on their side just yet. Please proceed to add the CC_REPORTER_ID secret to your GitHub repository manually...')
+    utils.core.warning('Unable to automatically set REPORTER_ID secret, please update it manually.')
+    return Promise.reject('ERROR: no test reporter ID was provided by Code Climate - it may be that the repository is not ready on their side just yet. Please proceed to add the REPORTER_ID secret to your GitHub repository manually...')
   }
   const baseInit = {
     method: 'GET',
@@ -32,7 +32,7 @@ function getPublicKey ({ fetch, checkStatus }, repo, baseInit) {
 
 function addSecret ({ fetch, checkStatus }, repo, reporterId, baseInit) {
   return pubKey => {
-    console.log('INFO: updating CC_REPORTER_ID secret in repository...')
+    console.log('INFO: updating REPORTER_ID secret in repository...')
     const sodium = require('tweetsodium')
     const idBytes = Buffer.from(reporterId)
     const keyBytes = Buffer.from(pubKey.key, 'base64')
@@ -46,10 +46,10 @@ function addSecret ({ fetch, checkStatus }, repo, reporterId, baseInit) {
       method: 'PUT',
       body: JSON.stringify(body)
     }
-    return fetch(`https://api.github.com/repos/${repo}/actions/secrets/CC_REPORTER_ID`, init)
-      .then(checkStatus(`ERROR: unable to set CC_REPORTER_ID secret for ${repo}. To make sure this does not come from access right to GitHub API, please provide a GITHUB_TOKEN to this action which has repo scope.`))
+    return fetch(`https://api.github.com/repos/${repo}/actions/secrets/REPORTER_ID`, init)
+      .then(checkStatus(`ERROR: unable to set REPORTER_ID secret for ${repo}. To make sure this does not come from access right to GitHub API, please provide a GITHUB_TOKEN to this action which has repo scope.`))
       .then(() => {
-        console.log('SUCCESS: successfully updated CC_REPORTER_ID secret in repository!')
+        console.log('SUCCESS: successfully updated REPORTER_ID secret in repository!')
       })
   }
 }
