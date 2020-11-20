@@ -2,7 +2,8 @@ module.exports = (errorMsg, validityAnalyzer = res => res.ok) => res => new Prom
   if (validityAnalyzer(res)) {
     resolve(res)
   } else {
-    console.log(res.statusText)
+    const { status, statusText } = res
+    console.log(`${status}: ${statusText}`)
     reject(errorMsg)
   }
 })
