@@ -2,7 +2,7 @@
 module.exports = (utils, repo) => {
   const token = process.env.CC_TOKEN
   if (!token) {
-    utils.core.warning('No CC_TOKEN environment variable found.')
+    utils.warning('No CC_TOKEN environment variable found.')
     return Promise.reject('ERROR: no CC_TOKEN environment variable found. Please provide your Code Climate token as CC_TOKEN environment variable...')
   }
   return checkRepo(utils, repo).then(() => addRepo(utils, repo, token))

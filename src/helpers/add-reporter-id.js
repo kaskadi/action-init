@@ -2,12 +2,12 @@
 module.exports = (utils, repo) => repoData => {
   const ghToken = process.env.GH_ACCESS_TOKEN
   if (!ghToken) {
-    utils.core.warning('No GH_ACCESS_TOKEN environment variable found.')
+    utils.warning('No GH_ACCESS_TOKEN environment variable found.')
     return Promise.reject('ERROR: no GH_ACCESS_TOKEN environment variable found. Please provide your GitHub personal access token with repo scope as GH_ACCESS_TOKEN environment variable...')
   }
   const reporterId = repoData.data.attributes.test_reporter_id
   if (!reporterId) {
-    utils.core.warning('Unable to automatically set REPORTER_ID secret, please update it manually.')
+    utils.warning('Unable to automatically set REPORTER_ID secret, please update it manually.')
     return Promise.reject('ERROR: no test reporter ID was provided by Code Climate - it may be that the repository is not ready on their side just yet. Please proceed to add the REPORTER_ID secret to your GitHub repository manually...')
   }
   const baseInit = {
