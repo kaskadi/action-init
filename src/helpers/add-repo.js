@@ -1,10 +1,9 @@
 /* eslint prefer-promise-reject-errors: off */
-module.exports = (utils) => {
+module.exports = (utils, repo) => {
   const token = process.env.CC_TOKEN
   if (!token) {
     return Promise.reject('ERROR: no CC_TOKEN environment variable found. Please provide your Code Climate token as CC_TOKEN environment variable...')
   }
-  const repo = process.env.GITHUB_REPOSITORY
   return checkRepo(utils, repo)
     .then(repoExists => {
       if (!repoExists) {
