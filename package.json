@@ -1,6 +1,6 @@
 {
   "name": "action-init",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "a GitHub action to initialize repositories created from templates in Kaskadi",
   "main": "action.yml",
   "scripts": {
