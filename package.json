@@ -42,7 +42,7 @@
     "report-dir": "./coverage"
   },
   "dependencies": {
-    "@actions/core": "^1.2.6",
+    "@actions/core": "^1.9.1",
     "node-fetch": "^2.6.1",
     "tweetsodium": "0.0.5"
   }
